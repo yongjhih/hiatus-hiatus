@@ -1,0 +1,594 @@
+<!Doctype html>
+<!--
+              _                            _          _     _       _             _                 _ _
+__      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ ___| | __ _ _ __   __| | |
+\ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  | '_ \| |/ _` | __| | | / __| |/ _` | '_ \ / _` | |
+ \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) | | | | | | (_| | |_| |_| \__ \ | (_| | | | | (_| |_|
+  \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/  |_| |_|_|\__,_|\__|\__,_|___/_|\__,_|_| |_|\__,_(_)
+
+ -->
+<html ng-app="hiatusXhiatus">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0">
+    <meta name="description" content="Togashi's Hunter x Hunter Hiatus Chart"/>
+    <meta name="keywords" content="hunter x hunter,hiatus,hiatuses,hiato,hiatos,gráfico,chart,togashi"/>
+    <meta property="og:url" content="https://hiatus-hiatus.rhcloud.com/"/>
+    <meta property="og:title" content="HUNTER×HUNTER Hiatus Chart"/>
+    <meta property="og:description" content="Togashi's Hunter x Hunter Hiatus Chart"/>
+    <meta property="og:image" content="https://hiatus-hiatus.rhcloud.com/icon.png"/>
+    <!--<meta name="google-site-verification" content="G1lTOd25kSvhh8p4eWnVvr52YbP1HJIYjLGZIORCUCU"/>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material.min.css"/>
+    <title>HUNTER×HUNTER Hiatus Chart</title>
+    <style>
+        body {
+            overflow-y: scroll;
+            padding-top: 15px;
+            font-family: "Trebuchet MS", Verdana, sans-serif;
+        }
+
+        .footer {
+            width: 100%;
+            text-align: center;
+            bottom: 0;
+        }
+
+        .bar {
+            border-radius: 4px;
+            padding-top: 40px;
+            background-color: #CC0000;
+            margin-bottom: 10px;
+        }
+
+        .bar.left {
+            float: left;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .bar.right {
+            float: left;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .bar.blue {
+            background-color: #33B5E5;
+        }
+
+        .bar.dark-blue {
+            background-color: #0099CC;
+        }
+
+        ._container {
+            transition: 1.5s ease-in-out all;
+            min-width: 1250px;
+            max-height: 5000px;
+            overflow: hidden;
+
+        }
+
+        .h-row {
+            margin-bottom: 1px;
+            width: 100%;
+            height: 18px;
+            max-height: 18px;
+            cursor: default;
+        }
+
+        .h-col {
+            -webkit-transition: background-color 1s;
+            -moz-transition: background-color 1s;
+            -o-transition: background-color 1s;
+            transition: background-color 1s;
+            height: 16px;
+            width: 21px;
+            display: inline-block;
+            margin-left: 2px;
+            background-color: #33B5E5;
+        }
+
+        .chart-year {
+            padding: 0;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 4px;
+            font-size: 12px;
+        }
+
+        .h-row:hover .h-col {
+            background-color: #0099CC;
+        }
+
+        .h-row:hover .false {
+            background-color: #CC0000;
+        }
+
+        .false {
+            background-color: #FF4444;
+        }
+
+        .card-content {
+            vertical-align: middle;
+        }
+
+        .chart {
+            margin-left: 15px;
+            margin-bottom: 30px;
+        }
+
+        .inner {
+            max-height: 0;
+
+        }
+
+        .inner .fab {
+            display: none;
+        }
+
+        .defrag {
+            background-color: #9C27B0;
+            margin-right: 4px;
+        }
+
+        .inner div {
+            visibility: hidden;
+        }
+
+        #status {
+            margin-bottom: 40px;
+        }
+
+        .chart div .h-row:last-child .h-col:nth-child(2) {
+            margin-left: 255px;
+        }
+
+        .table th, table td {
+            cursor: default;
+            text-align: center;
+        }
+
+        .table-bar {
+            background-color: #FF4444 !important;
+            color: white;
+        }
+
+        .fab {
+            display: block;
+            float: right;
+            top: 10px;
+            right: 10px;
+
+            transition: 400ms;
+            border-radius: 50%;
+            padding: 20px;
+            border: none;
+            background-color: #3F51B5;
+            color: white;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 5px 0 rgba(0, 0, 0, .23);
+
+        }
+
+        .fab:hover {
+            box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .19), 0 6px 3px 0 rgba(0, 0, 0, .23);
+        }
+
+        .fab:active {
+            background-color: #4b62dd;
+
+        }
+
+        .hiatus-arc {
+            background-color: #E0E0E0;
+        }
+
+        .h-row:hover .hiatus-arc {
+            background-color: #cacaca;
+        }
+
+        .hunter-exam {
+            background-color: #3F51B5;
+        }
+
+        .h-row:hover .hunter-exam {
+            background-color: #1A237E;
+        }
+
+        .zoldyck-family {
+            background-color: #009688;
+        }
+
+        .h-row:hover .zoldyck-family {
+            background-color: #004D40;
+        }
+
+        .heavens-arena {
+            background-color: #FFC107;
+        }
+
+        .h-row:hover .heavens-arena {
+            background-color: #FF6F00;
+        }
+
+        .heavens-arena {
+            background-color: #FFC107;
+        }
+
+        .h-row:hover .heavens-arena {
+            background-color: #FF6F00;
+        }
+
+        .yorknew-city {
+            background-color: #4CAF50;
+        }
+
+        .h-row:hover .yorknew-city {
+            background-color: #43A047;
+        }
+
+        .greed-island {
+            background-color: #FF5722;
+        }
+
+        .h-row:hover .greed-island {
+            background-color: #F4511E;
+        }
+
+        .chimera-ant {
+            background-color: #9C27B0;
+        }
+
+        .h-row:hover .chimera-ant {
+            background-color: #7B1FA2;
+        }
+
+        .election-arc {
+            background-color: #E91E63;
+        }
+
+        .h-row:hover .election-arc {
+            background-color: #C2185B;
+        }
+
+        .dark-continent {
+            background-color: #607D8B;
+        }
+
+        .h-row:hover .dark-continent {
+            background-color: #546E7A;
+        }
+
+        .kurapika-oneshot {
+            background-color: #F44336;
+        }
+
+        .h-row:hover .kurapika-oneshot {
+            background-color: #B71C1C;
+        }
+
+        .notransition .h-row:hover .h-col {
+            transition: none;
+        }
+
+        .notransition .h-row .h-col {
+            transition: none;
+        }
+
+        .h-row:hover .false {
+            background-color: #CC0000;
+        }
+
+
+    </style>
+
+    <script src="https://code.highcharts.com/adapters/standalone-framework.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+
+    <script src="https://hiatus-hiatus.rhcloud.com/js/highcharts-ng.min.js"></script>
+    <script src="https://hiatus-hiatus.rhcloud.com/js/konami.js"></script>
+
+
+</head>
+<body ng-controller="mainController">
+
+
+<div class="well container _container inner" ng-class="{'inner':!ready}">
+    <button ng-click="toggleArcs()" class="fab">Arcs</button>
+    <button ng-click="toggleOrder()" class="fab defrag" ng-show="egg">Defrag</button>
+    <h1 class="text-center">HUNTER×HUNTER Hiatus Chart</h1>
+
+
+    <div style="margin-left: auto;margin-right: auto">
+
+        <div id="main-chart" class="row chart notransition">
+            <div>
+                <div class="h-row" ng-repeat="year in years">
+                    <div class="chart-year">{{year._id}}</div>
+                    <div class='h-col {{showArcs?(status.arcs | filter: {order: issue.arc})[0]["css"]:issue.isPresent}}'
+                         ng-repeat="issue in year.issues |orderBy:orderByStatus?['-isPresent','issue']:'issue'"
+                         title='{{showArcs?(status.arcs | filter: {order: issue.arc})[0]["name"]:"Issue: "+issue.issue }}'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 500px;margin: 0 auto" ng-show="showArcs">
+            <div class="caption" ng-repeat="arc in status.arcs" style="float: left;min-width: 230px;">
+                <div class="h-col {{arc.css}}"></div>
+                {{arc.name}}
+            </div>
+        </div>
+        <div class="text-center caption" ng-show="!showArcs">
+            <div class="h-col"></div>
+            Appears in jump
+
+            <div class="h-col false"></div>
+            Hiatus
+        </div>
+
+    </div>
+</div>
+
+
+<div class="well container _container inner" ng-class="{'inner':!ready}">
+    <div>
+        <h1 class="text-center">Hiatus Status</h1>
+
+        <div id="status" class="row center-block">
+
+            <div ng-show="status.current.hiatusCount>0">
+                <p>Current hiatus:
+                    <span ng-show="status.current.hiatusCount>0">
+                    <strong>{{status.current.hiatusCount}}</strong> issue<span ng-show="status.current.hiatusCount>1">s</span>
+                (since issue {{status.current.begin.issue}}/{{status.current.begin.year}})
+                    </span>
+                    <strong ng-show="status.current.hiatusCount==0">No hiatus</strong>
+                </p>
+
+                <div class="bar false" ng-style="{width:currentWidth}"></div>
+
+            </div>
+
+
+            <div ng-show="status.currentPubStreak.count>0">
+                <p>
+                    Current publication streak:
+                    <strong>{{status.currentPubStreak.count}}</strong> issue<span ng-show="status.currentPubStreak.count>1">s</span>
+                    (since issue {{status.currentPubStreak.begin.issue}}/{{status.currentPubStreak.begin.year}})
+                </p>
+
+                <div class="bar blue" ng-style="{width:currentPubStreakWidth}"></div>
+
+            </div>
+            <p>Longest hiatus: <strong>{{status.longest.hiatusCount}} </strong>issues
+                (from issue {{status.longest.begin.issue}}/{{status.longest.begin.year}} to issue
+                {{status.longest.end.issue}}/{{status.longest.end.year}})
+            </p>
+
+            <div class="bar" style="width: 100%"></div>
+
+            <p>
+                Longest publication streak: <strong>{{status.pubStreak.count}}</strong> issues
+                (from issue {{status.pubStreak.begin.issue}}/{{status.pubStreak.begin.year}} to issue
+                {{status.pubStreak.end.issue}}/{{status.pubStreak.end.year}})
+            </p>
+
+            <div class="bar dark-blue" ng-style="{width:pubStreakWidth}"></div>
+        </div>
+    </div>
+</div>
+<div class="well container _container inner" ng-class="{'inner':!ready}">
+    <div>
+        <h1 class="text-center">Overall Stats</h1>
+
+        <div id="stats" class="row center-block">
+            <p><strong>{{status.overall.totalIssues}}</strong> Weekly Shonen Jump issues were released since HUNTER x
+                HUNTER's debut</p>
+
+
+            <div ng-style="{width:pTotalPresent}" style="float:left">
+                <p><span class="text-info"><strong>{{status.overall.totalPresent}}</strong> ({{status.overall.totalPresent / status.overall.totalIssues / 0.01| number : 0}}%) </span>total
+                    issues HUNTER x HUNTER was present</p>
+
+                <div class="bar left blue" style="display: inline-block; width:100%"></div>
+            </div>
+            <div ng-style="{width:pTotalHiatus}" style="float:left">
+                <p><span class="text-danger"><strong>{{status.overall.totalHiatus}}</strong> ({{status.overall.totalHiatus/status.overall.totalIssues/0.01| number : 0}}%) </span>total
+                    issues missed</p>
+
+                <div class="bar false right" style="display: inline-block;width:100%"></div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="well container _container inner" ng-class="{'inner':!ready}">
+    <div>
+        <h1 class="text-center">Major Hiatuses</h1>
+
+        <div id="breaks" class="row center-block">
+            <div class="col-xs-10 col-xs-offset-1">
+
+                <table class="table table-condensed table-hover">
+                    <thead>
+                    <tr>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th class="col-xs-8">Number of issues</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="hiatus in majorHiatuses">
+                        <td>{{hiatus.start}}</td>
+                        <td>{{hiatus.end}}</td>
+                        <td>
+                            <div class="table-bar"
+                                 ng-style="{width:hiatus.viewProportion}">
+                                {{hiatus.total}}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="well container _container inner" ng-class="{'inner':!ready}">
+    <highchart id="chart1" config="chartConfig"></highchart>
+</div>
+<div class="well container _container inner" ng-class="{'inner':!ready}">
+    <div class="row">
+        <h3 class="text-center">Hiatus / Cycle</h3>
+    </div>
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <table class="table table-condensed table-hover">
+                <thead>
+                <tr>
+                    <th>Cycle</th>
+                    <th>Issues Missed</th>
+                    <th>% Hiatus</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="year in years">
+                    <td>{{year._id}}</td>
+                    <td>{{((year.issues|filter:{isPresent:false}).length)}}/{{year.issues.length}}</td>
+                    <td ng-class="{'text-danger':(((year.issues|filter:{isPresent:false}).length/(year.issues.length))/0.01| number : 0)>50}">
+                        {{((year.issues|filter:{isPresent:false}).length/(year.issues.length))/0.01| number : 0}}%
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    <p>Last Updated: {{status.lastUpdated| date:'MMM dd yyyy'}}.</p>
+
+    <p>source (up to 2014): <a target="_blank" href="http://hunter.noihjp.com/rest/">http://hunter.noihjp.com/</a></p>
+</div>
+<script type="text/javascript">
+    angular.module('hiatusXhiatus', ["highcharts-ng"])
+            .controller('mainController', function ($scope, $http, $timeout) {
+                $scope.showArcs = false;
+                $scope.ready = false;
+                $scope.orderByStatus = false;
+
+                $scope.toggleOrder = function () {
+                    $scope.orderByStatus = !$scope.orderByStatus;
+                };
+
+                $scope.toggleArcs = function () {
+                    $scope.showArcs = !$scope.showArcs;
+                    angular.element(document.getElementById('main-chart')).removeClass('notransition');
+
+                    $timeout(function () {
+                        angular.element(document.getElementById('main-chart')).addClass("notransition");
+                    }, 1000);
+                }
+                $http.get('http://hiatus-hiatus.rhcloud.com/api/issues/by_year')
+                        .success(function (data) {
+                            $scope.ready = true;
+                            for (var i = 0; i < data.length; i++) {
+                                data[i].issues.sort(function (a, b) {
+                                    if (a.issue < b.issue) return -1;
+                                    if (a.issue > b.issue) return 1;
+                                    return 0;
+                                });
+                            }
+                            $scope.years = data;
+
+
+                            var countPresent = function (issues) {
+                                var count = 0;
+                                issues.forEach(function (issue) {
+                                    if (issue.isPresent) {
+                                        count++;
+                                    }
+                                });
+                                return count;
+                            };
+                            var parsedData = [];
+                            data.forEach(function (year) {
+                                parsedData.push([year._id, countPresent(year.issues)]);
+                            });
+
+                            $scope.chartConfig = {
+                                options: {
+                                    chart: {
+                                        type: 'line'
+                                    },
+                                    legend: {enabled: false}
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'Chapters'
+                                    },
+                                    min: 0
+                                },
+                                xAxis: {
+                                    step: 1
+                                },
+                                series: [{
+                                    name: "chapters",
+                                    data: parsedData
+                                }],
+                                title: {
+                                    text: 'Chapters released by cycle'
+                                },
+                                credits: {
+                                    enabled: false
+                                }
+
+                            };
+
+
+                        })
+                        .error(function (data) {
+                            console.log('Error: ' + data);
+                        });
+
+                $http.get('http://hiatus-hiatus.rhcloud.com/api/hiatus_status')
+                        .success(function (data) {
+                            data.lastUpdated = new Date(data.lastUpdated);
+                            $scope.status = data;
+                            $scope.currentWidth = (data.current.hiatusCount / data.longest.hiatusCount / 0.01) + "%";
+                            $scope.pubStreakWidth = (data.pubStreak.count / data.longest.hiatusCount / 0.01) + "%";
+                            $scope.currentPubStreakWidth = (data.currentPubStreak.count / data.longest.hiatusCount / 0.01) + "%";
+                            $scope.pTotalPresent = (data.overall.totalPresent / data.overall.totalIssues / 0.01) + "%";
+                            $scope.pTotalHiatus = (data.overall.totalHiatus / data.overall.totalIssues / 0.01) + "%";
+
+                        });
+                $http.get('http://hiatus-hiatus.rhcloud.com/api/major_hiatuses').success(function (data) {
+                    $scope.majorHiatuses = data;
+                });
+            });
+
+
+    //    var detour = new Konami("http://i.imgur.com/2mqXas1.png");
+
+    var defrag = new Konami(function () {
+        window.scrollTo(0, 0);
+        var scope = angular.element(document.getElementById("main-chart")).scope();
+        scope.$apply(function () {
+            scope.egg = true;
+        })
+    });
+
+</script>
+</body>
+<!--made by http://www.reddit.com/user/rentzhx3-->
+</html>
