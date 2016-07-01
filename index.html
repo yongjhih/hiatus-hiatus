@@ -322,7 +322,7 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
         </div>
         <div class="text-center caption" ng-show="!showArcs">
             <div class="h-col"></div>
-            刊登
+            出刊
 
             <div class="h-col false"></div>
             休刊
@@ -334,7 +334,7 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
 
 <div class="well container _container inner" ng-class="{'inner':!ready}">
     <div>
-        <h1 class="text-center">刊登狀態</h1>
+        <h1 class="text-center">出刊狀態</h1>
 
         <div id="status" class="row center-block">
 
@@ -342,7 +342,7 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
                 <p>現在休刊狀態:
                     <span ng-show="status.current.hiatusCount>0">
                     <strong>{{status.current.hiatusCount}}</strong> 次<span ng-show="status.current.hiatusCount>1"></span>
-                (從上次刊登 {{status.current.begin.issue}}/{{status.current.begin.year}})
+                (從上次出刊 {{status.current.begin.issue}}/{{status.current.begin.year}})
                     </span>
                     <strong ng-show="status.current.hiatusCount==0">現在還沒休刊</strong>
                 </p>
@@ -354,7 +354,7 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
 
             <div ng-show="status.currentPubStreak.count>0">
                 <p>
-                    現在連續刊登狀態：
+                    現在連續出刊狀態：
                     <strong>{{status.currentPubStreak.count}}</strong> 次<span ng-show="status.currentPubStreak.count>1"></span>
                     (從 {{status.currentPubStreak.begin.issue}}/{{status.currentPubStreak.begin.year}})
                 </p>
@@ -370,7 +370,7 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
             <div class="bar" style="width: 100%"></div>
 
             <p>
-                最長連續刊登: <strong>{{status.pubStreak.count}}</strong> 次
+                最長連續出刊: <strong>{{status.pubStreak.count}}</strong> 次
                 (從 {{status.pubStreak.begin.issue}}/{{status.pubStreak.begin.year}} 到
                 {{status.pubStreak.end.issue}}/{{status.pubStreak.end.year}})
             </p>
@@ -384,11 +384,11 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
         <h1 class="text-center">統計</h1>
 
         <div id="stats" class="row center-block">
-            <p><strong>{{status.overall.totalIssues}}</strong> 刊登</p>
+            <p><strong>{{status.overall.totalIssues}}</strong> 出刊</p>
 
 
             <div ng-style="{width:pTotalPresent}" style="float:left">
-                <p><span class="text-info"><strong>{{status.overall.totalPresent}}</strong> ({{status.overall.totalPresent / status.overall.totalIssues / 0.01| number : 0}}%) </span> 刊登</p>
+                <p><span class="text-info"><strong>{{status.overall.totalPresent}}</strong> ({{status.overall.totalPresent / status.overall.totalIssues / 0.01| number : 0}}%) </span> 出刊</p>
 
                 <div class="bar left blue" style="display: inline-block; width:100%"></div>
             </div>
@@ -546,7 +546,7 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
                                     data: parsedData
                                 }],
                                 title: {
-                                    text: '刊登趨勢'
+                                    text: '出刊趨勢'
                                 },
                                 credits: {
                                     enabled: false
