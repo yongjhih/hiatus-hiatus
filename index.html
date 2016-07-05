@@ -339,9 +339,9 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
         <div id="status" class="row center-block">
 
             <div ng-show="status.current.hiatusCount>0">
-                <p>現在休刊狀態:
+                <p>現在連續休刊期數: 
                     <span ng-show="status.current.hiatusCount>0">
-                    <strong>{{status.current.hiatusCount}}</strong> 次<span ng-show="status.current.hiatusCount>1"></span>
+                    <strong>{{status.current.hiatusCount}}</strong> 期<span ng-show="status.current.hiatusCount>1"></span>
                 (從上次出刊 {{status.current.begin.issue}}/{{status.current.begin.year}})
                     </span>
                     <strong ng-show="status.current.hiatusCount==0">現在還沒休刊</strong>
@@ -354,7 +354,7 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
 
             <div ng-show="status.currentPubStreak.count>0">
                 <p>
-                    現在連續出刊狀態：
+                    現在連續出刊期數：
                     <strong>{{status.currentPubStreak.count}}</strong> 次<span ng-show="status.currentPubStreak.count>1"></span>
                     (從 {{status.currentPubStreak.begin.issue}}/{{status.currentPubStreak.begin.year}})
                 </p>
@@ -362,7 +362,7 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
                 <div class="bar blue" ng-style="{width:currentPubStreakWidth}"></div>
 
             </div>
-            <p>最長休刊: <strong>{{status.longest.hiatusCount}} </strong> 次休刊
+            <p>最長連續休刊期數: <strong>{{status.longest.hiatusCount}} </strong> 期
                 (從 {{status.longest.begin.issue}}/{{status.longest.begin.year}} 到
                 {{status.longest.end.issue}}/{{status.longest.end.year}})
             </p>
@@ -370,7 +370,7 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
             <div class="bar" style="width: 100%"></div>
 
             <p>
-                最長連續出刊: <strong>{{status.pubStreak.count}}</strong> 次
+                最長連續出刊期數: <strong>{{status.pubStreak.count}}</strong> 期
                 (從 {{status.pubStreak.begin.issue}}/{{status.pubStreak.begin.year}} 到
                 {{status.pubStreak.end.issue}}/{{status.pubStreak.end.year}})
             </p>
@@ -384,16 +384,16 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
         <h1 class="text-center">統計</h1>
 
         <div id="stats" class="row center-block">
-            <p><strong>{{status.overall.totalIssues}}</strong> 出刊</p>
+            <p><strong>{{status.overall.totalIssues}}</strong> 期/p>
 
 
             <div ng-style="{width:pTotalPresent}" style="float:left">
-                <p><span class="text-info"><strong>{{status.overall.totalPresent}}</strong> ({{status.overall.totalPresent / status.overall.totalIssues / 0.01| number : 0}}%) </span> 出刊</p>
+                <p><span class="text-info"><strong>{{status.overall.totalPresent}}</strong> ({{status.overall.totalPresent / status.overall.totalIssues / 0.01| number : 0}}%) </span> 期出刊</p>
 
                 <div class="bar left blue" style="display: inline-block; width:100%"></div>
             </div>
             <div ng-style="{width:pTotalHiatus}" style="float:left">
-                <p><span class="text-danger"><strong>{{status.overall.totalHiatus}}</strong> ({{status.overall.totalHiatus/status.overall.totalIssues/0.01| number : 0}}%) </span>休刊</p>
+                <p><span class="text-danger"><strong>{{status.overall.totalHiatus}}</strong> ({{status.overall.totalHiatus/status.overall.totalIssues/0.01| number : 0}}%) </span> 期休刊</p>
 
                 <div class="bar false right" style="display: inline-block;width:100%"></div>
             </div>
@@ -444,14 +444,14 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
 </div>
 <div class="well container _container inner" ng-class="{'inner':!ready}">
     <div class="row">
-        <h3 class="text-center">休刊週期</h3>
+        <h3 class="text-center">休刊年度</h3>
     </div>
     <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
             <table class="table table-condensed table-hover">
                 <thead>
                 <tr>
-                    <th>週期</th>
+                    <th>年度</th>
                     <th>休刊次數</th>
                     <th>% 休刊</th>
                 </tr>
