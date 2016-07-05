@@ -355,7 +355,7 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
             <div ng-show="status.currentPubStreak.count>0">
                 <p>
                     現在連續出刊期數：
-                    <strong>{{status.currentPubStreak.count}}</strong> 次<span ng-show="status.currentPubStreak.count>1"></span>
+                    <strong>{{status.currentPubStreak.count}}</strong> 期<span ng-show="status.currentPubStreak.count>1"></span>
                     (從 {{status.currentPubStreak.begin.issue}}/{{status.currentPubStreak.begin.year}})
                 </p>
 
@@ -542,7 +542,7 @@ __      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |__ (_) __ _| |_ _   _ __
                                     step: 1
                                 },
                                 series: [{
-                                    name: "話數",
+                                    name: "期數",
                                     data: parsedData
                                 }],
                                 title: {
